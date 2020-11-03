@@ -6,13 +6,13 @@ val tableUsers = mutableListOf(
     mapOf("id" to "3", "login" to "q", "hashPassword" to "4a220600490d41af793cbb5c4494e435", "salt" to "YYLmfY6IehjZMQ"))
 
 val tableRolesResources = mutableListOf(
-    mapOf("id" to "1", "role" to "A", "res" to "READ", "idUser" to "1"),
-    mapOf("id" to "2", "role" to "A.B.C", "res" to "WRITE", "idUser" to "1"),
-    mapOf("id" to "3", "role" to "A.B", "res" to "EXECUTE", "idUser" to "2"),
-    mapOf("id" to "4", "role" to "B", "res" to "EXECUTE", "idUser" to "3"),
-    mapOf("id" to "5", "role" to "A.B.C", "res" to "READ", "idUser" to "2"),
-    mapOf("id" to "6", "role" to "A.B", "res" to "WRITE", "idUser" to "2"),
-    mapOf("id" to "7", "role" to "A", "res" to "READ", "idUser" to "2")
+    mapOf("id" to "1", "resource" to "A", "role" to "READ", "idUser" to "1"),
+    mapOf("id" to "2", "resource" to "A.B.C", "role" to "WRITE", "idUser" to "1"),
+    mapOf("id" to "3", "resource" to "A.B", "role" to "EXECUTE", "idUser" to "2"),
+    mapOf("id" to "4", "resource" to "B", "role" to "EXECUTE", "idUser" to "3"),
+    mapOf("id" to "5", "resource" to "A.B.C", "role" to "READ", "idUser" to "2"),
+    mapOf("id" to "6", "resource" to "A.B", "role" to "WRITE", "idUser" to "2"),
+    mapOf("id" to "7", "resource" to "A", "role" to "READ", "idUser" to "2")
 )
 
 val tableActivity: MutableList<Map<String, String>> = mutableListOf()
