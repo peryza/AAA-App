@@ -23,9 +23,9 @@ tests[17]="app.jar -login vasya -pass 123 -role READ -res A.B -ds 2020-10-1 -de 
 tests[18]="app.jar -login vasya -pass 123 -role WRITE -res A -ds 2020-03-12 -de 2020-03-13 -vol 10"
 expectedExitCodes=(1 1 0 0 2 3 4 0 5 6 0 0 4 6 0 7 7 7 6)
 for ((i = 0; i < "$amountTests"; i++)); do
-  test=tests[$i]
+  test=${tests[$i]}
   expectedExitCode=${expectedExitCodes[$i]}
-  ./RUN.sh "$test"
+  ./RUN.sh "${test}"
   exitCode="$?"
   if [ "$exitCode" == "$expectedExitCode" ]; then
     echo "Test $i passed: exit code - $?."
