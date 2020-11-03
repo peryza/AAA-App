@@ -37,6 +37,12 @@ class App {
         return NoAccess.exitCode
     }
 
+    private fun accounting(activity: Activity): Int {
+        if (!activity.hasValidData())
+            return IncorrectActivity.exitCode
+        dbWrapper.addActivity(activity)
+        return Success.exitCode
+    }
 
     private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
 
