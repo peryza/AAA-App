@@ -1,6 +1,10 @@
-import data.ExitCodes.Success
+import data.Activity
+import data.ExitCodes.*
+import data.RoleResource
+import data.User
 import services.DatabaseWrapper
 import services.HandlerCLI
+import services.printHelpMessage
 import java.math.BigInteger
 import java.security.MessageDigest
 
@@ -12,6 +16,17 @@ class App {
         val handlerCLI = HandlerCLI()
         val arguments = handlerCLI.parse(args)
         return Success.exitCode
+    }
+
+    private fun authentication(login: String, pass: String): Pair<Int, User> {
+        if (isLoginValid(login))
+            return InvalidLoginForm.exitCode to User()
+        val user = dbWrapper.getUser(login)
+        if (!user.isInvalidUser())
+            return UnknownLogin.exitCode to User()
+        if (!isPasswordValid(pass, user.salt!!, user.hashPassword!!))
+            return InvalidPassword.exitCode to User()
+        return Success.exitCode to user
     }
 
     private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
