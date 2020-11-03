@@ -15,6 +15,31 @@ class App {
     fun run(args: Array<String>): Int {
         val handlerCLI = HandlerCLI()
         val arguments = handlerCLI.parse(args)
+        if (arguments.hasNeedHelp()) {
+            printHelpMessage()
+            return Help.exitCode
+        }
+        val (exitCodeAuthentication, user) = authentication(arguments.login!!, arguments.pass!!)
+        if (exitCodeAuthentication != Success.exitCode)
+            return exitCodeAuthentication
+        if (!arguments.hasNeedAuthorization())
+            return Success.exitCode
+        val resource = RoleResource(role = arguments.role!!, resource = arguments.res!!, idUser = user.id!!)
+        val exitCodeAuthorization = authorization(resource)
+        if (exitCodeAuthorization != Success.exitCode)
+            return exitCodeAuthorization
+        if (!arguments.hasNeedAccounting())
+            return Success.exitCode
+        val activity = Activity(
+            role = arguments.role!!,
+            res = arguments.res!!,
+            ds = arguments.ds!!,
+            de = arguments.de!!,
+            vol = arguments.vol!!
+        )
+        val exitCodeAccounting = accounting(activity)
+        if (exitCodeAccounting != Success.exitCode)
+            return exitCodeAccounting
         return Success.exitCode
     }
 
