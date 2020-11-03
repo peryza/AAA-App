@@ -1,6 +1,8 @@
 import data.ExitCodes.Success
 import services.DatabaseWrapper
 import services.HandlerCLI
+import java.math.BigInteger
+import java.security.MessageDigest
 
 
 class App {
@@ -13,5 +15,15 @@ class App {
     }
 
     private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
+
+    private fun isPasswordValid(pass: String, salt: String, hashPassword: String) =
+        getHashPassword(pass, salt) == hashPassword
+
+    private fun getHashPassword(pass: String, salt: String) = applyMD5(applyMD5(pass) + salt)
+
+    private fun applyMD5(password: String): String {
+        val md = MessageDigest.getInstance("MD5")
+        return BigInteger(1, md.digest(password.toByteArray())).toString(16).padStart(32, '0')
+    }
 }
 
