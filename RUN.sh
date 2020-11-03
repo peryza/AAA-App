@@ -1,3 +1,3 @@
 #!/bin/bash
 ./BUILD.sh
-java  -jar app.jar ""$*""
+java -jar app.jar ""$*""

@@ -1,7 +1,8 @@
 package services
+
 import data.Arguments
 
-class HandlerCLI() {
+class HandlerCLI {
 
     fun parse(args: Array<String>): Arguments {
         val arguments = Arguments()
@@ -12,6 +13,7 @@ class HandlerCLI() {
         }
         return arguments
     }
+
     private fun isInvalidSize(sizeArgs: Int): Boolean = (sizeArgs !in arrayOf(0, 1, 4, 8, 14))
 
     private fun fillField(arguments: Arguments, arg: String, argValue: String) {

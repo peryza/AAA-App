@@ -22,25 +22,22 @@ tests[16]="app.jar -login vasya -pass 123 -role READ -res A.B -ds 2020-10-1 -de 
 tests[17]="app.jar -login vasya -pass 123 -role READ -res A.B -ds 2020-10-1 -de 2020-10-2 -vol hgh"
 tests[18]="app.jar -login vasya -pass 123 -role WRITE -res A -ds 2020-03-12 -de 2020-03-13 -vol 10"
 expectedExitCodes=(1 1 0 0 2 3 4 0 5 6 0 0 4 6 0 7 7 7 6)
-for ((i=0; i < "$amountTests"; i++))
-do
+for ((i = 0; i < "$amountTests"; i++)); do
   test=tests[$i]
   expectedExitCode=${expectedExitCodes[$i]}
   ./RUN.sh "$test"
   exitCode="$?"
-  if [ "$exitCode" == "$expectedExitCode" ]
-   then
-      echo "Test $i passed: exit code - $?."
-      let amountPassedTests++
-    else
-      echo "Test $i failed: received - $exitCode expected - $expectedExitCode."
+  if [ "$exitCode" == "$expectedExitCode" ]; then
+    echo "Test $i passed: exit code - $?."
+    let amountPassedTests++
+  else
+    echo "Test $i failed: received - $exitCode expected - $expectedExitCode."
   fi
 done
 echo "Result: $amountPassedTests passed tests"
-if [ "$amountPassedTests" == "$amountTests" ]
-  then
-    return 0
-  else
-    return 1
+if [ "$amountPassedTests" == "$amountTests" ]; then
+  return 0
+else
+  return 1
 fi
 exec $SHELL
