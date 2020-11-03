@@ -1,15 +1,17 @@
-import data.ExitCodes.Help
 import data.ExitCodes.Success
+import services.DatabaseWrapper
 import services.HandlerCLI
 
+
 class App {
+    private val dbWrapper = DatabaseWrapper()
+
     fun run(args: Array<String>): Int {
         val handlerCLI = HandlerCLI()
         val arguments = handlerCLI.parse(args)
-        when {
-            arguments.hasHelp() -> return Help.exitCode
-            arguments.isEmpty() -> return Help.exitCode
-        }
         return Success.exitCode
     }
+
+    private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
 }
+
