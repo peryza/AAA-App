@@ -29,6 +29,15 @@ class App {
         return Success.exitCode to user
     }
 
+    private fun authorization(resource: RoleResource): Int {
+        if (!resource.isRoleValid())
+            return UnknownRole.exitCode
+        if (dbWrapper.checkAccess(resource))
+            return Success.exitCode
+        return NoAccess.exitCode
+    }
+
+
     private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
 
     private fun isPasswordValid(pass: String, salt: String, hashPassword: String) =
