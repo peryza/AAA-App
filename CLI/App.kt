@@ -44,7 +44,7 @@ class App {
     }
 
     private fun authentication(login: String, pass: String): Pair<Int, User> {
-        if (isLoginValid(login))
+        if (!isLoginValid(login))
             return InvalidLoginForm.exitCode to User()
         val user = dbWrapper.getUser(login)
         if (!user.isInvalidUser())
