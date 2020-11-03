@@ -9,14 +9,14 @@ class HandlerCLI {
         val sizeArgs = args.size
         if (isInvalidSize(sizeArgs)) return arguments
         for (i in 0 until sizeArgs step 2) {
-            fillField(arguments, args[i], args[i + 1])
+            fillField(arguments, args[i], if (sizeArgs != 1) args[i + 1] else null)
         }
         return arguments
     }
 
     private fun isInvalidSize(sizeArgs: Int): Boolean = (sizeArgs !in arrayOf(0, 1, 4, 8, 14))
 
-    private fun fillField(arguments: Arguments, arg: String, argValue: String) {
+    private fun fillField(arguments: Arguments, arg: String, argValue: String?) {
         when (arg) {
             "-h" -> arguments.h = true
             "-login" -> arguments.login = argValue
