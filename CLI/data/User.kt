@@ -1,8 +1,10 @@
 package data
 
 data class User(
-    val id: Int,
-    val login: String,
-    val hashPassword: String,
-    val salt: String
-)
+    val id: Long? = null,
+    val login: String? = null,
+    val hashPassword: String? = null,
+    val salt: String? = null
+) {
+    fun isInvalidUser() = id != null
+}
