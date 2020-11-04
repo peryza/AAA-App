@@ -1,2 +1,2 @@
 #!/bin/bash
-kotlinc CLI -include-runtime -d app.jar
+kotlinc src -include-runtime -d app.jar

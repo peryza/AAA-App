@@ -11,10 +11,7 @@ class DatabaseWrapper {
 
     fun getUser(login: String): User {
         val response = tableUsers.find { it.login == login } ?: return User()
-        val id: Long = response.id!!
-        val hashPassword: String = response.hashPassword!!
-        val salt: String = response.salt!!
-        return User(id, login, hashPassword, salt)
+        return User(response.id, login, response.hashPassword, response.salt)
     }
 
     fun checkAccess(roleResource: RoleResource): Boolean {
