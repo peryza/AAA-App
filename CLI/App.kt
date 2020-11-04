@@ -2,6 +2,7 @@ import data.Activity
 import data.ExitCodes.*
 import data.RoleResource
 import data.User
+import data.Roles
 import services.DatabaseWrapper
 import services.HandlerCLI
 import services.printHelpMessage
@@ -25,12 +26,13 @@ class App {
 
         if (!arguments.isNeedAuthorization())
             return Success.exitCode
-        val resource = RoleResource(role = arguments.role!!, resource = arguments.res!!, idUser = user.id!!)
-        val exitCodeAuthorization = authorization(resource)
+        val exitCodeAuthorization = authorization(arguments.role!!, arguments.res!!, user.id!!)
         if (exitCodeAuthorization != Success.exitCode)
             return exitCodeAuthorization
+
         if (!arguments.isNeedAccounting())
             return Success.exitCode
+
         val activity = Activity(
             role = arguments.role!!,
             res = arguments.res!!,
@@ -41,31 +43,40 @@ class App {
         val exitCodeAccounting = accounting(activity)
         if (exitCodeAccounting != Success.exitCode)
             return exitCodeAccounting
+
         return Success.exitCode
     }
 
     private fun authentication(login: String, pass: String): Pair<Int, User> {
         if (!isLoginValid(login))
             return InvalidLoginForm.exitCode to User()
+
         val user = dbWrapper.getUser(login)
         if (!user.isInvalidUser())
             return UnknownLogin.exitCode to User()
+
         if (!isPasswordValid(pass, user.salt!!, user.hashPassword!!))
             return InvalidPassword.exitCode to User()
+
         return Success.exitCode to user
     }
 
-    private fun authorization(resource: RoleResource): Int {
-        if (!resource.isRoleValid())
-            return UnknownRole.exitCode
+    private fun authorization(roleString: String, res: String, idUser: Long): Int = try {
+        val role = Roles.valueOf(roleString)
+        val resource = RoleResource(role = role, resource = res, idUser = idUser)
         if (dbWrapper.checkAccess(resource))
-            return Success.exitCode
-        return NoAccess.exitCode
+            Success.exitCode
+        else
+            NoAccess.exitCode
+    } catch (error: java.lang.IllegalArgumentException) {
+        UnknownRole.exitCode
     }
+
 
     private fun accounting(activity: Activity): Int {
         if (!activity.hasValidData())
             return IncorrectActivity.exitCode
+
         dbWrapper.addActivity(activity)
         return Success.exitCode
     }
