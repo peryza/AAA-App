@@ -34,11 +34,11 @@ class App {
             return SUCCESS.exitCode
 
         val activity = Activity(
-            role = arguments.role!!,
-            res = arguments.res!!,
-            ds = arguments.ds!!,
-            de = arguments.de!!,
-            vol = arguments.vol!!
+                role = arguments.role!!,
+                res = arguments.res!!,
+                ds = arguments.ds!!,
+                de = arguments.de!!,
+                vol = arguments.vol!!
         )
         val exitCodeAccounting = accounting(activity)
         if (exitCodeAccounting != SUCCESS.exitCode)
@@ -52,13 +52,11 @@ class App {
             return INVALID_LOGIN_FORM.exitCode to User()
 
         val user = dbWrapper.getUser(login)
-        if (!user.isInvalidUser())
-            return UNKNOWN_LOGIN.exitCode to User()
-
-        if (!isPasswordValid(pass, user.salt!!, user.hashPassword!!))
-            return INVALID_PASSWORD.exitCode to User()
-
-        return SUCCESS.exitCode to user
+        return when {
+            !user.isInvalidUser() -> UNKNOWN_LOGIN.exitCode to User()
+            !isPasswordValid(pass, user.salt!!, user.hashPassword!!) -> INVALID_PASSWORD.exitCode to User()
+            else -> SUCCESS.exitCode to user
+        }
     }
 
     private fun authorization(roleString: String, res: String, idUser: Long): Int = try {
@@ -84,7 +82,7 @@ class App {
     private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
 
     private fun isPasswordValid(pass: String, salt: String, hashPassword: String) =
-        getHashPassword(pass, salt) == hashPassword
+            getHashPassword(pass, salt) == hashPassword
 
     private fun getHashPassword(pass: String, salt: String) = applyMD5(applyMD5(pass) + salt)
 
