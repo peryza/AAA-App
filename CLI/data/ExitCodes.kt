@@ -1,12 +1,12 @@
 package data
 
 enum class ExitCodes(val exitCode: Int) {
-    Success(0),
-    Help(1),
-    InvalidLoginForm(2),
-    UnknownLogin(3),
-    InvalidPassword(4),
-    UnknownRole(5),
-    NoAccess(6),
-    IncorrectActivity(7)
+    SUCCESS(0),
+    HELP(1),
+    INVALID_LOGIN_FORM(2),
+    UNKNOWN_LOGIN(3),
+    INVALID_PASSWORD(4),
+    UNKNOWN_ROLE(5),
+    NO_ACCESS(6),
+    INCORRECT_ACTIVITY(7)
 }

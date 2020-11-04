@@ -13,7 +13,7 @@ fun printHelpMessage() {
 }
 
 
-fun terminate(exitCode: Int = ExitCodes.Help.exitCode, printHelp: Boolean = true) {
+fun terminate(exitCode: Int = ExitCodes.HELP.exitCode, printHelp: Boolean = true) {
     if (printHelp)
         printHelpMessage()
     System.exit(exitCode)

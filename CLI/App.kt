@@ -18,20 +18,20 @@ class App {
         val arguments = handlerCLI.parse(args)
         if (arguments.isNeedHelp()) {
             printHelpMessage()
-            return Help.exitCode
+            return HELP.exitCode
         }
         val (exitCodeAuthentication, user) = authentication(arguments.login!!, arguments.pass!!)
-        if (exitCodeAuthentication != Success.exitCode)
+        if (exitCodeAuthentication != SUCCESS.exitCode)
             return exitCodeAuthentication
 
         if (!arguments.isNeedAuthorization())
-            return Success.exitCode
+            return SUCCESS.exitCode
         val exitCodeAuthorization = authorization(arguments.role!!, arguments.res!!, user.id!!)
-        if (exitCodeAuthorization != Success.exitCode)
+        if (exitCodeAuthorization != SUCCESS.exitCode)
             return exitCodeAuthorization
 
         if (!arguments.isNeedAccounting())
-            return Success.exitCode
+            return SUCCESS.exitCode
 
         val activity = Activity(
             role = arguments.role!!,
@@ -41,44 +41,44 @@ class App {
             vol = arguments.vol!!
         )
         val exitCodeAccounting = accounting(activity)
-        if (exitCodeAccounting != Success.exitCode)
+        if (exitCodeAccounting != SUCCESS.exitCode)
             return exitCodeAccounting
 
-        return Success.exitCode
+        return SUCCESS.exitCode
     }
 
     private fun authentication(login: String, pass: String): Pair<Int, User> {
         if (!isLoginValid(login))
-            return InvalidLoginForm.exitCode to User()
+            return INVALID_LOGIN_FORM.exitCode to User()
 
         val user = dbWrapper.getUser(login)
         if (!user.isInvalidUser())
-            return UnknownLogin.exitCode to User()
+            return UNKNOWN_LOGIN.exitCode to User()
 
         if (!isPasswordValid(pass, user.salt!!, user.hashPassword!!))
-            return InvalidPassword.exitCode to User()
+            return INVALID_PASSWORD.exitCode to User()
 
-        return Success.exitCode to user
+        return SUCCESS.exitCode to user
     }
 
     private fun authorization(roleString: String, res: String, idUser: Long): Int = try {
         val role = Roles.valueOf(roleString)
         val resource = RoleResource(role = role, resource = res, idUser = idUser)
         if (dbWrapper.checkAccess(resource))
-            Success.exitCode
+            SUCCESS.exitCode
         else
-            NoAccess.exitCode
+            NO_ACCESS.exitCode
     } catch (error: java.lang.IllegalArgumentException) {
-        UnknownRole.exitCode
+        UNKNOWN_ROLE.exitCode
     }
 
 
     private fun accounting(activity: Activity): Int {
         if (!activity.hasValidData())
-            return IncorrectActivity.exitCode
+            return INCORRECT_ACTIVITY.exitCode
 
         dbWrapper.addActivity(activity)
-        return Success.exitCode
+        return SUCCESS.exitCode
     }
 
     private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
