@@ -12,17 +12,6 @@ data class Activity(
     val vol: String
 ) {
 
-    fun toMap(): Map<String, String> {
-        return mapOf(
-            "id" to id.toString(),
-            "role" to role,
-            "res" to res,
-            "ds" to ds,
-            "de" to de,
-            "vol" to vol
-        )
-    }
-
     fun hasValidData(): Boolean {
         try {
             LocalDate.parse(ds)

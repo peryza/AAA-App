@@ -10,17 +10,17 @@ import db.tableUsers
 class DatabaseWrapper {
 
     fun getUser(login: String): User {
-        val response = tableUsers.find { it["login"] == login } ?: return User()
-        val id: Long = response.getValue("id").toLong()
-        val hashPassword: String = response.getValue("hashPassword")
-        val salt: String = response.getValue("salt")
+        val response = tableUsers.find { it.login == login } ?: return User()
+        val id: Long = response.id!!
+        val hashPassword: String = response.hashPassword!!
+        val salt: String = response.salt!!
         return User(id, login, hashPassword, salt)
     }
 
     fun checkAccess(roleResource: RoleResource): Boolean {
         val response = tableRolesResources.filter {
-            it["role"] == roleResource.role.name && it.getValue("idUser").toLong() == roleResource.idUser
-                    && checkResourceAccess(roleResource.resource, it.getValue("resource"))
+            it.role == roleResource.role && it.idUser == roleResource.idUser
+                    && checkResourceAccess(roleResource.resource, it.resource)
         }
         if (response.isEmpty())
             return false
@@ -35,6 +35,6 @@ class DatabaseWrapper {
     }
 
     fun addActivity(activity: Activity) {
-        tableActivity.add(activity.toMap())
+        tableActivity.add(activity)
     }
 }

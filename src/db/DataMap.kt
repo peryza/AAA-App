@@ -1,18 +1,24 @@
 package db
 
-val tableUsers = mutableListOf(
-    mapOf("id" to "1", "login" to "vasya", "hashPassword" to "7a5a73db77e24a3964fa333fd43be8bb", "salt" to "bv5PehSMfV11Cd"),
-    mapOf("id" to "2", "login" to "admin", "hashPassword" to "b43cfeda0e8e4bd96561535db8a1d377", "salt" to "QxLUF1bgIAdeQX"),
-    mapOf("id" to "3", "login" to "q", "hashPassword" to "4a220600490d41af793cbb5c4494e435", "salt" to "YYLmfY6IehjZMQ"))
+import data.Activity
+import data.RoleResource
+import data.Roles.*
+import data.User
 
-val tableRolesResources = mutableListOf(
-    mapOf("id" to "1", "resource" to "A", "role" to "READ", "idUser" to "1"),
-    mapOf("id" to "2", "resource" to "A.B.C", "role" to "WRITE", "idUser" to "1"),
-    mapOf("id" to "3", "resource" to "A.B", "role" to "EXECUTE", "idUser" to "2"),
-    mapOf("id" to "4", "resource" to "B", "role" to "EXECUTE", "idUser" to "3"),
-    mapOf("id" to "5", "resource" to "A.B.C", "role" to "READ", "idUser" to "2"),
-    mapOf("id" to "6", "resource" to "A.B", "role" to "WRITE", "idUser" to "2"),
-    mapOf("id" to "7", "resource" to "A", "role" to "READ", "idUser" to "2")
+val tableUsers = mutableListOf(
+    User(1, "vasya", "7a5a73db77e24a3964fa333fd43be8bb", "bv5PehSMfV11Cd"),
+    User(2, "admin", "b43cfeda0e8e4bd96561535db8a1d377", "QxLUF1bgIAdeQX"),
+    User(3, "q", "4a220600490d41af793cbb5c4494e435", "YYLmfY6IehjZMQ")
 )
 
-val tableActivity: MutableList<Map<String, String>> = mutableListOf()
+val tableRolesResources = mutableListOf(
+    RoleResource(1, READ, "A", 1),
+    RoleResource(2, WRITE, "A.B.C", 1),
+    RoleResource(3, EXECUTE, "A.B", 2),
+    RoleResource(4, EXECUTE, "B", 3),
+    RoleResource(5, READ, "A.B.C", 2),
+    RoleResource(6, WRITE, "A.B", 2),
+    RoleResource(7, READ, "A", 2)
+)
+
+val tableActivity: MutableList<Activity> = mutableListOf()
