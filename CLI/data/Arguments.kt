@@ -16,11 +16,11 @@ data class Arguments(
     fun isEmpty() =
         (login == null && pass == null && role == null && res == null && ds == null && de == null && vol == null)
 
-    fun hasNeedHelp() = hasHelp() || isEmpty() || !hasNeedAuthentication()
+    fun isNeedHelp() = hasHelp() || isEmpty() || !isNeedAuthentication()
 
-    fun hasNeedAuthentication() = login != null && pass != null
+    fun isNeedAuthentication() = login != null && pass != null
 
-    fun hasNeedAuthorization() = role != null && res != null
+    fun isNeedAuthorization() = role != null && res != null
 
-    fun hasNeedAccounting() = ds != null && de != null && vol != null
+    fun isNeedAccounting() = ds != null && de != null && vol != null
 }
