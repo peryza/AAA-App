@@ -19,7 +19,7 @@ class DatabaseWrapper {
 
     fun checkAccess(roleResource: RoleResource): Boolean {
         val response = tableRolesResources.filter {
-            it["role"] == roleResource.role && it.getValue("idUser").toLong() == roleResource.idUser
+            it["role"] == roleResource.role.name && it.getValue("idUser").toLong() == roleResource.idUser
                     && checkResourceAccess(roleResource.resource, it.getValue("resource"))
         }
         if (response.isEmpty())
