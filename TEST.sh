@@ -1,4 +1,5 @@
 #!/bin/bash
+echo $(pwd)
 ./BUILD.sh
 amountTests=19
 amountPassedTests=0
