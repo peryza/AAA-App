@@ -5,13 +5,16 @@ import services.HandlerCLI
 import services.printHelpMessage
 import java.math.BigInteger
 import java.security.MessageDigest
+import kotlinx.cli.*
 
 
 class App {
     private val dbWrapper = DatabaseWrapper()
 
     fun run(args: Array<String>): Int {
-        /*val parser = ArgParser("handler")
+//        val handlerCLI = HandlerCLI()
+//        val arguments = handlerCLI.parse(args)
+        val parser = ArgParser("handler")
         val login by parser.option(ArgType.String, shortName = "login", description = "User login").required()
         val pass by parser.option(ArgType.String, shortName = "pass", description = "User password").required()
         val role by parser.option(ArgType.String, shortName = "role", description = "Specified user role")
@@ -20,9 +23,8 @@ class App {
         val de by parser.option(ArgType.String, shortName = "de", description = "Data end")
         val vol by parser.option(ArgType.String, shortName = "vol", description = "User volume")
         parser.parse(args)
-        val arguments = Arguments(true, login, pass, role, res, ds, de, vol)*/
-        val handlerCLI = HandlerCLI()
-        val arguments = handlerCLI.parse(args)
+        val arguments = Arguments(false, login, pass, role, res, ds, de, vol)
+
         if (arguments.isNeedHelp()) {
             printHelpMessage()
             return HELP.exitCode
