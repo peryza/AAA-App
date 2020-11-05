@@ -37,8 +37,8 @@ for ((i = 0; i < "$amountTests"; i++)); do
 done
 echo "Result: $amountPassedTests passed tests"
 if [ "$amountPassedTests" == "$amountTests" ]; then
-  return 0
+  exit 0
 else
-  return 1
+  exit 1
 fi
 exec $SHELL
