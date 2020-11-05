@@ -31,5 +31,4 @@ class HandlerCLI {
             "-vol" -> arguments.vol = argValue
         }
     }
-
 }

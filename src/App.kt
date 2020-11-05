@@ -1,8 +1,5 @@
-import data.Activity
+import data.*
 import data.ExitCodes.*
-import data.RoleResource
-import data.User
-import data.Roles
 import services.DatabaseWrapper
 import services.HandlerCLI
 import services.printHelpMessage
@@ -14,6 +11,16 @@ class App {
     private val dbWrapper = DatabaseWrapper()
 
     fun run(args: Array<String>): Int {
+        /*val parser = ArgParser("handler")
+        val login by parser.option(ArgType.String, shortName = "login", description = "User login").required()
+        val pass by parser.option(ArgType.String, shortName = "pass", description = "User password").required()
+        val role by parser.option(ArgType.String, shortName = "role", description = "Specified user role")
+        val res by parser.option(ArgType.String, shortName = "res", description = "Specified user res")
+        val ds by parser.option(ArgType.String, shortName = "ds", description = "Data start")
+        val de by parser.option(ArgType.String, shortName = "de", description = "Data end")
+        val vol by parser.option(ArgType.String, shortName = "vol", description = "User volume")
+        parser.parse(args)
+        val arguments = Arguments(true, login, pass, role, res, ds, de, vol)*/
         val handlerCLI = HandlerCLI()
         val arguments = handlerCLI.parse(args)
         if (arguments.isNeedHelp()) {
