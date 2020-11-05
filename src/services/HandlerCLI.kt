@@ -15,7 +15,7 @@ class HandlerCLI {
         return arguments
     }
 
-    // Проверяем валидность кол-во ых аргументов
+    // Проверяем валидность кол-ва аргументов
     private fun isInvalidSize(sizeArgs: Int): Boolean = (sizeArgs !in arrayOf(0, 1, 4, 8, 14))
 
     // Заполняем поля класса Arguments
