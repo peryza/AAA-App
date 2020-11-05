@@ -1,3 +1,5 @@
+os: windows
+
 jdk:
   - openjdk11
 
