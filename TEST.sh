@@ -1,6 +1,7 @@
 #!/bin/bash
-echo $(pwd)
 ./BUILD.sh
+echo $(pwd)
+echo $(ls)
 amountTests=19
 amountPassedTests=0
 declare -A tests
