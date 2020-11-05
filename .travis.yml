@@ -1,5 +1,3 @@
-dist: xenial
-
 jdk:
   - openjdk11
 
