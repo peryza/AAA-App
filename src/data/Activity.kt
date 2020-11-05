@@ -12,6 +12,7 @@ data class Activity(
     val vol: String
 ) {
 
+    // Проверка валидности даты
     fun hasValidData(): Boolean {
         try {
             LocalDate.parse(ds)

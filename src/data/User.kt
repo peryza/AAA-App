@@ -6,5 +6,6 @@ data class User(
     val hashPassword: String? = null,
     val salt: String? = null
 ) {
+    // Проверка на существование пользователя
     fun isInvalidUser() = id != null
 }

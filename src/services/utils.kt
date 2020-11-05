@@ -2,6 +2,7 @@ package services
 
 import data.ExitCodes
 
+// Вывод справки
 fun printHelpMessage() {
     val helpMessage = """
         -h - prints out help
@@ -12,7 +13,7 @@ fun printHelpMessage() {
     println(helpMessage)
 }
 
-
+// Полное завершение приложения
 fun terminate(exitCode: Int = ExitCodes.HELP.exitCode, printHelp: Boolean = true) {
     if (printHelp)
         printHelpMessage()

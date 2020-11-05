@@ -47,6 +47,7 @@ class App {
         return SUCCESS.exitCode
     }
 
+    // Осуществление аутенфитикации
     private fun authentication(login: String, pass: String): Pair<Int, User> {
         if (!isLoginValid(login))
             return INVALID_LOGIN_FORM.exitCode to User()
@@ -59,6 +60,7 @@ class App {
         }
     }
 
+    // Осуществление авторизации
     private fun authorization(roleString: String, res: String, idUser: Long): Int = try {
         val role = Roles.valueOf(roleString)
         val resource = RoleResource(role = role, resource = res, idUser = idUser)
@@ -70,7 +72,7 @@ class App {
         UNKNOWN_ROLE.exitCode
     }
 
-
+    // Осуществление аккаунтинга
     private fun accounting(activity: Activity): Int {
         if (!activity.hasValidData())
             return INCORRECT_ACTIVITY.exitCode
@@ -79,13 +81,17 @@ class App {
         return SUCCESS.exitCode
     }
 
+    // Проверка валидности формы логина
     private fun isLoginValid(login: String) = login.matches(Regex("[0-9a-zA-Z]+"))
 
+    // Проверка валидности пароля
     private fun isPasswordValid(pass: String, salt: String, hashPassword: String) =
             getHashPassword(pass, salt) == hashPassword
 
+    // Получение хешированного пароля
     private fun getHashPassword(pass: String, salt: String) = applyMD5(applyMD5(pass) + salt)
 
+    // Применение MD5
     private fun applyMD5(password: String): String {
         val md = MessageDigest.getInstance("MD5")
         return BigInteger(1, md.digest(password.toByteArray())).toString(16).padStart(32, '0')

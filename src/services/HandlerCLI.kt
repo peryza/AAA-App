@@ -4,6 +4,7 @@ import data.Arguments
 
 class HandlerCLI {
 
+    // Активируем парсинг аргументов
     fun parse(args: Array<String>): Arguments {
         val arguments = Arguments()
         val sizeArgs = args.size
@@ -14,8 +15,10 @@ class HandlerCLI {
         return arguments
     }
 
+    // Проверяем валидность кол-во ых аргументов
     private fun isInvalidSize(sizeArgs: Int): Boolean = (sizeArgs !in arrayOf(0, 1, 4, 8, 14))
 
+    // Заполняем поля класса Arguments
     private fun fillField(arguments: Arguments, arg: String, argValue: String?) {
         when (arg) {
             "-h" -> arguments.h = true
