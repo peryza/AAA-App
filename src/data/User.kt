@@ -5,7 +5,4 @@ data class User(
     val login: String? = null,
     val hashPassword: String? = null,
     val salt: String? = null
-) {
-    // Проверка на существование пользователя
-    fun isInvalidUser() = id != null
-}
+)
