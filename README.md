@@ -1,5 +1,6 @@
 # [AAA-App](https://github.com/sLegionv/AAA-App)
-
+[![Build Status](https://travis-ci.org/sLegionv/AAA-App.svg?branch=master)](https://travis-ci.org/sLegionv/AAA-App)
+# Проект
 Реализация системы AAA.
 
 # Наборы требований
