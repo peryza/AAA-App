@@ -1,7 +1,6 @@
 import data.*
 import data.ExitCodes.*
 import services.DatabaseWrapper
-import services.HandlerCLI
 import services.printHelpMessage
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -12,8 +11,6 @@ class App {
     private val dbWrapper = DatabaseWrapper()
 
     fun run(args: Array<String>): Int {
-//        val handlerCLI = HandlerCLI()
-//        val arguments = handlerCLI.parse(args)
         val parser = ArgParser("handler")
         val login by parser.option(ArgType.String, shortName = "login", description = "User login").required()
         val pass by parser.option(ArgType.String, shortName = "pass", description = "User password").required()
