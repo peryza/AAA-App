@@ -2,7 +2,6 @@ package services
 
 import data.Activity
 import data.RoleResource
-import data.User
 import db.tableActivity
 import db.tableRolesResources
 import db.tableUsers
@@ -10,10 +9,7 @@ import db.tableUsers
 class DatabaseWrapper {
 
     // Получение данных пользователя
-    fun getUser(login: String): User {
-        val response = tableUsers.find { it.login == login } ?: return User()
-        return User(response.id, login, response.hashPassword, response.salt)
-    }
+    fun getUser(login: String) = tableUsers.find { it.login == login }
 
     // Проверка доступа
     fun checkAccess(roleResource: RoleResource): Boolean {
