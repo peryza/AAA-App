@@ -8,6 +8,5 @@
 6. Инструкция по сборке, запуску и тестированию в README.md.
 7. Travis CI.
 # План 2
-1) Добавить кроссплатформенность для TEST.sh.
-2) Внести ссылки на ROADMAP в README.md.
-3) Включить github pages.
+1) Внести ссылки на ROADMAP в README.md.
+2) Включить github pages.
