@@ -2,7 +2,7 @@
 
 Реализация системы AAA.
 
-# Build & Run & Test application
+# Build & Run & Test Application
 
 ## Build
 Запустить скрипт сборки — `BUILD.sh`
